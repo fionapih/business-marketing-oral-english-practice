@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#6FA8B8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="学习舱">
+<title>外企英语学习舱 · 零基础外企职场进阶365</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== 移动端遮罩 ========== -->
+<div class="scrim" id="scrim"></div>
+
+<div class="app">
+
+  <!-- ========================================================= -->
+  <!-- 左侧导航栏                                                  -->
+  <!-- ========================================================= -->
+  <aside class="sidebar" id="sidebar">
+
+    <header class="brand">
+      <div class="brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none">
+          <rect x="6" y="9" width="36" height="30" rx="8" fill="#fff" stroke="#4A7F8F" stroke-width="2.4"/>
+          <path d="M24 15v20" stroke="#4A7F8F" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M11 15.5c4.2-1.2 8.4-1.2 12.6 0M11 22c4.2-1.2 8.4-1.2 12.6 0M11 28.5c4.2-1.2 8.4-1.2 12.6 0" stroke="#9AC6D2" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24.4 15.5c4.2-1.2 8.4-1.2 12.6 0M24.4 22c4.2-1.2 8.4-1.2 12.6 0M24.4 28.5c4.2-1.2 8.4-1.2 12.6 0" stroke="#F0C4B4" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="15" cy="7" r="2.4" fill="#F7D08A"/>
+          <circle cx="34" cy="6" r="1.8" fill="#B5D6C4"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>外企英语学习舱</h1>
+        <p>零基础 · 外企职场进阶 365</p>
+      </div>
+      <button class="icon-btn sidebar-close" id="sidebarClose" aria-label="收起导航">
+        <svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+
+    <!-- 今日任务快捷入口 -->
+    <nav class="nav-quick">
+      <button class="quick-item is-active" data-view="today">
+        <span class="quick-ico">
+          <svg viewBox="0 0 24 24"><path d="M5 4.5h14a1.5 1.5 0 011.5 1.5v13A1.5 1.5 0 0119 20.5H5A1.5 1.5 0 013.5 19V6A1.5 1.5 0 015 4.5z" stroke="currentColor" stroke-width="1.8"/><path d="M8 2.5v4M16 2.5v4M3.5 9.5h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8.5 14.2l2.2 2.2 4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="quick-label">今日任务</span>
+        <span class="quick-badge" id="quickTodayBadge">0/16</span>
+      </button>
+      <button class="quick-item" data-view="review">
+        <span class="quick-ico">
+          <svg viewBox="0 0 24 24"><path d="M12 3.5a8.5 8.5 0 108.2 10.8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M20.5 4.5v4.2h-4.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 7.6V12l2.8 1.8" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </span>
+        <span class="quick-label">成长复盘</span>
+      </button>
+    </nav>
+
+    <div class="nav-section-title">
+      <span>十二大月度模块</span>
+      <em id="navSceneTotal">0/48</em>
+    </div>
+
+    <!-- 12 个月度模块 -->
+    <div class="nav-modules" id="navModules"><!-- JS 渲染 --></div>
+
+    <!-- 底部固定栏 -->
+    <footer class="sidebar-foot">
+      <div class="streak" title="连续打卡天数">
+        <span class="streak-flame">
+          <svg viewBox="0 0 24 24"><path d="M12 2.8s1.2 3.2-1.4 5.6C8 10.8 6 12.6 6 15.4A6 6 0 0018 15.6c0-2.3-1-3.6-2-5-.6 1-1.3 1.6-2.2 1.9.7-2.6.5-6.6-1.8-9.7z" fill="#F0A886"/></svg>
+        </span>
+        <b id="streakDays">0</b><small>天连击</small>
+      </div>
+      <div class="sync-badge" id="syncBadge" title="数据保存状态">
+        <i class="dot"></i><span>本地已存</span>
+      </div>
+      <button class="icon-btn ghost" id="btnSettings" aria-label="设置">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 14.5a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5v.2a2 2 0 01-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H3a2 2 0 010-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H9a1.6 1.6 0 001-1.5V3a2 2 0 014 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V9a1.6 1.6 0 001.5 1h.2a2 2 0 010 4h-.1a1.6 1.6 0 00-1.5 1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </button>
+    </footer>
+  </aside>
+
+  <!-- ========================================================= -->
+  <!-- 右侧主内容区                                                -->
+  <!-- ========================================================= -->
+  <main class="main">
+
+    <!-- 顶栏 -->
+    <header class="topbar">
+      <button class="icon-btn burger" id="burger" aria-label="展开导航">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="topbar-title">
+        <h2 id="viewTitle">今日任务</h2>
+        <p id="viewSubtitle">每天 15 个单词 + 1 段场景对话（影子跟读评分）</p>
+      </div>
+      <div class="topbar-right">
+        <div class="today-chip">
+          <span id="todayDate">--</span>
+        </div>
+        <button class="btn-primary sm" id="btnGoToday">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          去学习
+        </button>
+      </div>
+    </header>
+
+    <!-- 视图容器 -->
+    <div class="view-wrap" id="viewWrap">
+
+      <!-- ============ 视图：今日任务 ============ -->
+      <section class="view" id="view-today">
+        <div class="stat-grid">
+          <div class="stat-card dashed tone-blue">
+            <div class="stat-ico"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="stat-body"><b id="statDone">0/16</b><span>今日完成</span></div>
+          </div>
+          <div class="stat-card dashed tone-mint">
+            <div class="stat-ico"><svg viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9-5.2-2.8-5.2 2.8 1-5.9L3.5 9.7l5.9-.8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+            <div class="stat-body"><b id="statMastered">0</b><span>已掌握</span></div>
+          </div>
+          <div class="stat-card dashed tone-peach">
+            <div class="stat-ico"><svg viewBox="0 0 24 24"><path d="M12 20.5V9M6 20.5v-6M18 20.5V4.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+            <div class="stat-body"><b id="statQuiz">0</b><span>今日自测</span></div>
+          </div>
+          <div class="stat-card dashed tone-cream">
+            <div class="stat-ico"><svg viewBox="0 0 24 24"><path d="M12 2.8s1.2 3.2-1.4 5.6C8 10.8 6 12.6 6 15.4A6 6 0 0018 15.6c0-2.3-1-3.6-2-5-.6 1-1.3 1.6-2.2 1.9.7-2.6.5-6.6-1.8-9.7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></div>
+            <div class="stat-body"><b id="statStreak">0</b><span>连续打卡</span></div>
+          </div>
+        </div>
+
+        <div class="panel dashed progress-panel">
+          <div class="progress-head">
+            <div>
+              <h3>365 天总进度</h3>
+              <p>已解锁场景 <b id="progSceneText">0 / 48</b> · 语料掌握 <b id="progItemText">0 条</b></p>
+            </div>
+            <div class="progress-pct"><b id="progPct">0</b><small>%</small></div>
+          </div>
+          <div class="bar lg"><i id="progBar" style="width:0%"></i></div>
+          <div class="month-dots" id="monthDots"><!-- JS --></div>
+        </div>
+
+        <div class="panel dashed section-panel">
+          <div class="section-head">
+            <h3>📚 今日单词 <span class="sec-count" id="wordCount">15</span></h3>
+            <p class="sec-sub">含真实例句 · 点 🔊 听发音，学完标记熟练度</p>
+          </div>
+          <div class="task-list" id="wordList"><!-- JS 渲染 --></div>
+        </div>
+
+        <div class="panel dashed section-panel">
+          <div class="section-head">
+            <h3>🎧 今日场景对话 · 影子跟读</h3>
+            <p class="sec-sub">先听原音，再大声跟读，系统自动打分</p>
+          </div>
+          <div id="dialoguePanel"><!-- JS 渲染 --></div>
+        </div>
+
+        <div class="panel dashed challenge-entry" id="challengeEntry">
+          <div class="ce-left">
+            <div class="ce-ico">🎯</div>
+            <div>
+              <h3>抽查挑战</h3>
+              <p>完成今日基础任务后解锁 · 随机抽取 10 条历史素材自测</p>
+            </div>
+          </div>
+          <button class="btn-primary" id="btnChallenge" disabled>未解锁</button>
+        </div>
+      </section>
+
+      <!-- ============ 视图：模块详情（4 场景卡） ============ -->
+      <section class="view is-hidden" id="view-module">
+        <div class="module-hero dashed" id="moduleHero"><!-- JS --></div>
+        <div class="scene-grid" id="sceneGrid"><!-- JS --></div>
+        <div class="panel dashed pitfall-panel">
+          <h3 class="panel-title"><span class="ttl-ico">⚠️</span>易错避坑提示</h3>
+          <div class="pitfall-list" id="pitfallList"><!-- JS --></div>
+        </div>
+
+        <div class="panel dashed practice-entry" id="practiceEntry">
+          <div class="pe-left">
+            <div class="pe-ico">🎯</div>
+            <div>
+              <h3>实战演练</h3>
+              <p id="peCount">按问题开口作答，看范例，系统帮你批改语法</p>
+            </div>
+          </div>
+          <button class="btn-primary" id="btnGoPractice">开始演练 →</button>
+        </div>
+      </section>
+
+      <!-- ============ 视图：实战演练（模块级） ============ -->
+      <section class="view is-hidden" id="view-practice">
+        <button class="back-link" id="btnBackModule2">
+          <svg viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          返回模块
+        </button>
+        <div class="practice-head" id="practiceHead"><!-- JS --></div>
+        <div class="practice-list" id="practiceList"><!-- JS --></div>
+      </section>
+
+      <!-- ============ 视图：场景学习（4 模式） ============ -->
+      <section class="view is-hidden" id="view-scene">
+        <button class="back-link" id="btnBackModule">
+          <svg viewBox="0 0 24 24"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          返回模块
+        </button>
+        <div class="scene-hero dashed" id="sceneHero"><!-- JS --></div>
+        <div class="mode-switch" id="modeSwitch"><!-- JS --></div>
+        <div class="mode-body" id="modeBody"><!-- JS --></div>
+      </section>
+
+      <!-- ============ 视图：成长复盘 ============ -->
+      <section class="view is-hidden" id="view-review">
+        <div class="review-grid">
+          <div class="panel dashed">
+            <h3 class="panel-title"><span class="ttl-ico">📅</span>月度打卡日历</h3>
+            <div class="cal" id="calendar"><!-- JS --></div>
+          </div>
+          <div class="panel dashed">
+            <h3 class="panel-title"><span class="ttl-ico">🩹</span>薄弱知识点</h3>
+            <div class="weak-list" id="weakList">
+              <div class="empty-hint slim">暂无标记为「模糊 / 不知道」的内容</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel dashed">
+          <h3 class="panel-title"><span class="ttl-ico">✍️</span>每日一句话复盘</h3>
+          <div class="reflect-box">
+            <textarea id="reflectInput" rows="3" placeholder="今天卡在哪儿了？记一句，明天就不踩同一个坑～"></textarea>
+            <button class="btn-primary" id="btnSaveReflect">保存复盘</button>
+          </div>
+          <div class="reflect-history" id="reflectHistory"></div>
+        </div>
+        <div class="panel dashed">
+          <h3 class="panel-title"><span class="ttl-ico">⭐</span>素材收藏夹</h3>
+          <div class="fav-toolbar">
+            <input type="search" id="favSearch" placeholder="搜索收藏的英文 / 中文…">
+          </div>
+          <div class="fav-list" id="favList">
+            <div class="empty-hint slim">还没有收藏，学习时点 ⭐ 就能收进来</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- ========== 设置抽屉 ========== -->
+<div class="drawer" id="settingsDrawer" aria-hidden="true">
+  <div class="drawer-panel">
+    <header class="drawer-head">
+      <h3>设置中心</h3>
+      <button class="icon-btn" id="btnCloseSettings" aria-label="关闭">
+        <svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="drawer-body">
+      <div class="set-group dashed">
+        <h4>版本更新</h4>
+        <p class="set-desc">当前版本 <b id="appVersion">v0.1.0 · 骨架版</b></p>
+        <button class="btn-line" id="btnUpdate">检查并加载新版</button>
+      </div>
+      <div class="set-group dashed">
+        <h4>数据管理</h4>
+        <p class="set-desc">学习记录全部保存在本机浏览器，关闭页面不丢失。</p>
+        <div class="set-actions">
+          <button class="btn-line" id="btnExport">导出数据</button>
+          <button class="btn-line" id="btnImport">导入数据</button>
+          <button class="btn-line danger" id="btnClear">清除缓存并刷新</button>
+        </div>
+        <input type="file" id="importFile" accept="application/json" hidden>
+      </div>
+      <div class="set-group dashed">
+        <h4>安装到桌面（PWA）</h4>
+        <p class="set-desc">iPhone：Safari 分享 → 添加到主屏幕；<br>电脑 Chrome / Edge：地址栏右侧「安装」图标。</p>
+        <button class="btn-primary full" id="btnInstall">一键安装</button>
+      </div>
+      <div class="set-group dashed">
+        <h4>发音偏好</h4>
+        <div class="seg" id="accentSeg">
+          <button class="seg-item is-active" data-accent="us">美式 🇺🇸</button>
+          <button class="seg-item" data-accent="uk">英式 🇬🇧</button>
+        </div>
+        <p class="set-desc">真人录音优先，无录音时自动使用语音合成。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 完成庆祝弹窗 ========== -->
+<div class="celebrate" id="celebrate" aria-hidden="true">
+  <canvas id="confetti"></canvas>
+  <div class="celebrate-card dashed">
+    <div class="celebrate-emoji">🎉</div>
+    <h3>太棒啦～任务已完成！</h3>
+    <p>今天的 15 个单词 + 1 段对话已经拿下，连击 +1</p>
+    <div class="celebrate-actions">
+      <button class="btn-primary" id="btnCelebrateOk">太棒啦，任务已完成</button>
+      <button class="btn-line" id="btnCelebrateMore">我还能学，再来一组！</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 抽查挑战弹窗 ========== -->
+<div class="drawer challenge" id="challengeModal" aria-hidden="true">
+  <div class="drawer-panel challenge-panel">
+    <header class="drawer-head">
+      <h3>🎯 抽查挑战</h3>
+      <button class="icon-btn" id="chClose" aria-label="关闭">
+        <svg viewBox="0 0 24 24"><path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+    </header>
+    <div class="challenge-body" id="challengeBody"><!-- JS --></div>
+    <div class="drawer-foot">
+      <button class="btn-primary full" id="chNext">下一题 →</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/curriculum.js"></script>
+<script src="data/subscenes.js"></script>
+<script src="js/store.js"></script>
+<script src="data/corpus.js"></script>
+<script src="data/pitfalls.js"></script>
+<script src="data/practice.js"></script>
+<script src="js/grammar.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
